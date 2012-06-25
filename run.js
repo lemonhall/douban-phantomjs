@@ -1,27 +1,27 @@
-var page = require('webpage').create();
-var url='http://www.baidu.com/';
+var login_page = require('webpage').create();
+var login_url='http://www.douban.com/accounts/login';
 
-page.onConsoleMessage = function (msg) { 
+login_page.onConsoleMessage = function (msg) { 
 	console.log("Inner log:       "+msg); 
 };
 
-page.onError = function (msg, trace) {
+login_page.onError = function (msg, trace) {
     console.log(msg);
     trace.forEach(function(item) {
         console.log('  ', item.file, ':', item.line);
     })
 }
 
-page.onLoadFinished = function (status) {
-	// page.injectJs('jquery-1.7.2.min.js');
-	// page.injectJs('contentscript.js');
-	page.injectJs('test.js');
+login_page.onLoadFinished = function (status) {
+	login_page.injectJs('jquery-1.7.2.min.js');
+	// login_page.injectJs('contentscript.js');
+	login_page.injectJs('test.js');
 
-        page.evaluate(function() {
-        		console.log('hello');
+        login_page.evaluate(function() {
+
             });
-    //console.log(page.content);
+    //console.log(login_page.content);
     phantom.exit();
 };
 
-page.open(url);
+login_page.open(login_url);
