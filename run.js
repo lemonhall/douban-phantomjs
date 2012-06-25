@@ -2,7 +2,7 @@ var page = require('webpage').create();
 var url='http://www.baidu.com/';
 
 page.onConsoleMessage = function (msg) { 
-	console.log(msg); 
+	console.log("Inner log:       "+msg); 
 };
 
 page.onError = function (msg, trace) {
