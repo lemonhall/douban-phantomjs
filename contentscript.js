@@ -6,7 +6,7 @@
  
 (function(){
 	var urlParams = {};
-	var debug=1;
+	var debug=3;
 	(function () {
 	    var match,
 	        pl     = /\+/g,  // Regex for replacing addition symbol with a space
@@ -54,10 +54,14 @@ var datatypehash={3043:"推荐单曲",1025:"上传照片",1026:"相册推荐",10
 	var people=cur_location.slice(29,-1);
 //====================================================================
 //如果是在广播界面
-	if(ifupdate_url){
-			var t=setTimeout(function(){				
-				location.href="http://www.douban.com/update/";				
-			},30000);
+if(ifupdate_url){
+var t=setTimeout(function(){
+	var number = urlParams["p"]===undefined?1:parseInt(urlParams["p"], 10);
+	//console.log(number);			
+	if(number!=100){
+		location.href="http://www.douban.com/update/?p="+(number+1)+"&auto_roll=1";
+	}				
+},10000);
 //=========================================================================
 var need_save_kind={1026:"相册推荐",1013:"推荐小组话题",1015:"推荐/新日记",1012:"推荐书评",3065:"东西",1025:"推荐相片"}
 $("div.status-item").each(function(){
@@ -143,17 +147,15 @@ if((need_save_kind.hasOwnProperty(data_kind))&&(data_action=="0"||data_action=="
 //这样会减少不必要的AJAX读取
 if(status.length>2){
 	//定位p.text a对象，然后开始修改吧，少年
+	
 	var user_actions_obj=myself.find("div.actions");
-	user_actions_obj.parent().parent().parent().css("background-color","#E9F4E9");
-	//加入按钮并绑定数据
-	user_actions_obj.find(".ban_temply_btn").after("&nbsp;&nbsp;<a class='folder_topic'>展开该话题?"+"/共有"+(status.length-1).toString()+"人关注</a>");
-	var folder=user_actions_obj.find(".folder_topic");
-	//将数据包序列化后存储在相应的DOM元素上，这简直就是OO啊
-	var datas=JSON.stringify(status);
-	folder.attr("data-status",datas);
+	var snap=user_actions_obj.parent().parent().parent();
+		snap.css("background-color","#E9F4E9");
+	console.log("Lenght of status:"+status.length);
+	console.log("Element before Height:"+snap.outerHeight()); 
+	console.log("Status:"+JSON.stringify(status[0])); 
+	//var snap=$(".mod[data-status-id='955928757']");
 	//处理站展开的函数
-	function expand_topic(){
-		var status=JSON.parse($(this).attr("data-status"));
 		var u_a_o=$(this).parent();
 		var user_quote_obj=u_a_o.find("div.bd blockquote");
 			user_quote_obj.before("楼主说：");
@@ -184,7 +186,10 @@ if(status.length>2){
 				});//End of Get json
 			}
 			function successFunc(){
-				//console.log("success!");   
+				//console.log("success!");
+				console.log("Lenght of status:"+status.length);
+				console.log("Element After Height:"+snap.outerHeight());  
+				console.log("Status:"+JSON.stringify(status[0])); 
 			    }			 
 			function failureFunc(){
 			    //console.log("failure!");
@@ -195,11 +200,6 @@ if(status.length>2){
 			).then( successFunc, failureFunc );
 		}//End of 过滤META信息的if
 		});//End of Each
-		//一旦展开完毕，就隐藏按钮，简化逻辑 
-		$(this).hide();
-	}//End of expand_topic Click function
-	//绑定好对应的处理函数
-	folder.bind('click', expand_topic);
 }
 //===========================================================
 	}
@@ -207,10 +207,10 @@ if(status.length>2){
 //End of line 211 if
 });//扫描每个status-item的例程结束		
 }//End of if update view?
-if(debug==1){
- Object.keys(localStorage)
-      .forEach(function(key){
-               console.log(key+":"+localStorage[key]);
-       });
-}
+// if(debug==2){
+//  Object.keys(localStorage)
+//       .forEach(function(key){
+//                console.log(key+":"+localStorage[key]);
+//        });
+// }
 } )();
