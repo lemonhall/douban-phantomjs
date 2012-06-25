@@ -57,11 +57,14 @@ var datatypehash={3043:"推荐单曲",1025:"上传照片",1026:"相册推荐",10
 if(ifupdate_url){
 var t=setTimeout(function(){
 	var number = urlParams["p"]===undefined?1:parseInt(urlParams["p"], 10);
-	//console.log(number);			
-	if(number!=100){
-		location.href="http://www.douban.com/update/?p="+(number+1)+"&auto_roll=1";
-	}				
-},10000);
+	//console.log(number);	
+	console.log("\n>>>>>>>>>>>>>>>>>>");
+		console.log("Where am I? :"+location.href);	
+	console.log("\n>>>>>>>>>>>>>>>>>>");
+	console.log("\n");
+	console.log("\n");	
+	location.href="http://www.douban.com/update/";			
+},30000);
 //=========================================================================
 var need_save_kind={1026:"相册推荐",1013:"推荐小组话题",1015:"推荐/新日记",1012:"推荐书评",3065:"东西",1025:"推荐相片"}
 $("div.status-item").each(function(){
@@ -145,7 +148,7 @@ if((need_save_kind.hasOwnProperty(data_kind))&&(data_action=="0"||data_action=="
 //如果大于2则打上颜色标记，并加入展开逻辑的代码，在按钮上附加上数据
 //，即所有的status的data_sid，数组，然后处理部分则更简单，读取这个数组，并展开
 //这样会减少不必要的AJAX读取
-if(status.length>2){
+if(status.length>10){
 	//定位p.text a对象，然后开始修改吧，少年
 	
 	var user_actions_obj=myself.find("div.actions");
@@ -207,10 +210,17 @@ if(status.length>2){
 //End of line 211 if
 });//扫描每个status-item的例程结束		
 }//End of if update view?
-// if(debug==2){
-//  Object.keys(localStorage)
-//       .forEach(function(key){
-//                console.log(key+":"+localStorage[key]);
-//        });
-// }
+if(debug==3){
+ Object.keys(localStorage)
+      .forEach(function(key){
+               
+               var status=JSON.parse(localStorage[key]);
+               if(status.length>4){
+               		console.log("> "+status.length+" status....."+JSON.stringify(status[0]));
+               		console.log("\n");
+               		console.log("===========================================");
+               		console.log("\n");
+               }
+       });
+}
 } )();
