@@ -1,10 +1,11 @@
 [www.douban.com]
 bid=\"UKJzioIywd4\"
 ue=\"lemonhall2012@qq.com\"
-dbcl2=\"55895127:led8XNYdjGE\"
-ck=\"4OFm\"
+dbcl2=\"deleted\"
+ck=\"deleted\"
 __utma=30149280.2016318330.1340622225.1340622225.1340622225.1
 __utmb=30149280.500.10.1340622225
 __utmc=30149280
 __utmz="30149280.1340622225.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)"
 __utmv=30149280.5589
+as=\"http://www.douban.com/update/\"
