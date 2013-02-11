@@ -1,3 +1,6 @@
+[General]
+cookies="@Variant(\0\0\0\x7f\0\0\0\x16QList<QNetworkCookie>\0\0\0\0\x1\0\0\0\t\0\0\0Tbid=\"lgyh20xPpM4\"; expires=Tue, 11-Feb-2014 13:27:40 GMT; domain=.douban.com; path=/\0\0\0\x66ue=\"lemonhall@foxmail.com\"; expires=Tue, 11-Feb-2014 16:10:44 GMT; domain=.douban.com; path=/accounts/\0\0\0idbcl2=\"58233926:OMPp6kLB4aA\"; HttpOnly; expires=Wed, 13-Mar-2013 16:10:44 GMT; domain=.douban.com; path=/\0\0\0%ck=\"lga0\"; domain=.douban.com; path=/\0\0\0\x7f__utma=30149280.335069680.1360599047.1360599047.1360599047.1; expires=Wed, 11-Feb-2015 17:30:30 GMT; domain=.douban.com; path=/\0\0\0\x63__utmb=30149280.86.10.1360599047; expires=Mon, 11-Feb-2013 18:00:30 GMT; domain=.douban.com; path=/\0\0\0+__utmc=30149280; domain=.douban.com; path=/\0\0\0\x8f__utmz=30149280.1360599047.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); expires=Tue, 13-Aug-2013 05:30:30 GMT; domain=.douban.com; path=/\0\0\0W__utmv=30149280.5823; expires=Wed, 11-Feb-2015 17:30:30 GMT; domain=.douban.com; path=/)"
+
 [www.douban.com]
 bid=\"UKJzioIywd4\"
 ue=\"lemonhall2012@qq.com\"
