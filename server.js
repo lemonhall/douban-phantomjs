@@ -26,6 +26,19 @@ io.sockets.on('connection', function (socket) {
       socket.broadcast.emit('onGot_Captach_txt',data);
   });
 
+  socket.on('setFriendShip', function (data) {
+      //socket.emit('news', {my:"Hello"});
+      console.log(data);
+  });
+
+  
+
+	// var t=setInterval(function(){
+
+	// 	socket.emit("hello", { my:"hello"});
+
+	// },1000);
+
 
   socket.on('onGot_Captach_img', function (data) {
       //socket.emit('news', {my:"Hello"});

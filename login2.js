@@ -3,6 +3,7 @@ var url=location.href;
 console.log("Hello form login.js");
 console.log("Where Am I ??:"+location.href);
 
+var socket = io.connect('http://localhost:9000');
 
 if(url==='https://www.douban.com/accounts/login?redir=http%3A//www.douban.com/update/'){
 		console.log("Hello form accounts/login");
@@ -20,7 +21,7 @@ if(url==='https://www.douban.com/accounts/login?redir=http%3A//www.douban.com/up
 		//而后返回的值会作为最后的键入
 		//可能最后得用到Dnode或者now.js这类的长链接框架
 
-	var socket = io.connect('http://localhost:9000');
+
 
 	//得到了实际的验证码之后，就可以开始登陆咯
 	socket.on('onGot_Captach_txt', function (data) {
@@ -50,11 +51,21 @@ if(url==='http://www.douban.com/update/'){
 		console.log("Hello form douban/update");
 		console.log("Before:"+location.href);
 		console.log("After: "+location.href);
+
+	  socket.on('hello', function (data) {
+	      //socket.emit('news', {my:"Hello"});
+	      console.log(data.my);
+	  });
+
 		//var test=$(".mod").text();
 		//console.log(test);
-
+		var reshare=$(".btn-reshare");
 			var t=setTimeout(function(){
-				$(".btn-reshare").trigger("click");
+			
+				if(reshare!=null){
+					reshare.trigger("click");
+				}
+				socket.emit("hello", { my:"hello"});
 				console.log($(".btn-reshare").html());
 				window.location.reload();
 			},50000);
