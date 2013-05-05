@@ -5,6 +5,67 @@ console.log("Where Am I ??:"+location.href);
 
 var socket = io.connect('http://localhost:9000');
 
+function simulate(element, eventName)
+{
+    var options = extend(defaultOptions, arguments[2] || {});
+    var oEvent, eventType = null;
+
+    for (var name in eventMatchers)
+    {
+        if (eventMatchers[name].test(eventName)) { eventType = name; break; }
+    }
+
+    if (!eventType)
+        throw new SyntaxError('Only HTMLEvents and MouseEvents interfaces are supported');
+
+    if (document.createEvent)
+    {
+        oEvent = document.createEvent(eventType);
+        if (eventType == 'HTMLEvents')
+        {
+            oEvent.initEvent(eventName, options.bubbles, options.cancelable);
+        }
+        else
+        {
+            oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView,
+            options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
+            options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
+        }
+        element.dispatchEvent(oEvent);
+    }
+    else
+    {
+        options.clientX = options.pointerX;
+        options.clientY = options.pointerY;
+        var evt = document.createEventObject();
+        oEvent = extend(evt, options);
+        element.fireEvent('on' + eventName, oEvent);
+    }
+    return element;
+}
+
+function extend(destination, source) {
+    for (var property in source)
+      destination[property] = source[property];
+    return destination;
+}
+
+var eventMatchers = {
+    'HTMLEvents': /^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,
+    'MouseEvents': /^(?:click|dblclick|mouse(?:down|up|over|move|out))$/
+}
+var defaultOptions = {
+    pointerX: 0,
+    pointerY: 0,
+    button: 0,
+    ctrlKey: false,
+    altKey: false,
+    shiftKey: false,
+    metaKey: false,
+    bubbles: true,
+    cancelable: true
+}
+
 if(url==='https://www.douban.com/accounts/login?redir=http%3A//www.douban.com/update/'){
 		console.log("Hello form accounts/login");
 		var email=$("#email");
@@ -59,20 +120,31 @@ if(url==='http://www.douban.com/update/'){
 
 		//var test=$(".mod").text();
 		//console.log(test);
-		var reshare=$(".btn-reshare");
+	
 			var t=setTimeout(function(){
-			
-				if(reshare!=null){
+				var reshare=$(".btn-reshare");
+				console.log(reshare);
+				if(reshare!=null && reshare!=undefined){
+					// var offset = reshare.offset();
+					// var event = $.extend( $.Event( "mousedown" ), {
+     //                              				which: 1,
+     //                                            pageX: offset.left,
+     //                                            pageY: offset.top
+     //                                    });
+
+					// reshare.trigger(event);
+					//simulate(reshare, "click");
 					reshare.trigger("click");
+					console.log("I am trigger????");
 				}
 				socket.emit("hello", { my:"hello"});
 				console.log($(".btn-reshare").html());
 				window.location.reload();
-			},50000);
+			},10000);
 
 }
 if(url==='http://www.douban.com/'){
-		console.log("Hello form douban/update");
+		console.log("Hello form douban.com");
 		console.log("Before:"+location.href);
 		location.href="http://www.douban.com/update/";
 		console.log("After: "+location.href);

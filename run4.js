@@ -13,7 +13,7 @@ login_page.onError = function (msg, trace) {
 }
 
 login_page.onLoadFinished = function (status) {
-	login_page.injectJs('jquery-1.7.2.min.js');
+	login_page.injectJs('jq1.4.4.js');
 	login_page.injectJs('socket.io.js');
 	login_page.injectJs('login2.js');
     //phantom.exit();
