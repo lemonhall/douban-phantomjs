@@ -1,5 +1,15 @@
 var login_page = require('webpage').create();
 var login_url='http://www.douban.com/update/';
+var system = require('system');
+var fs=require('fs');
+
+
+console.log(system.pid);
+
+//Open the file then ....close it...
+var pidfile=fs.open("/root/douban-phantomjs/douban.pid","w");
+    pidfile.write(system.pid);
+pidfile.close();
 
 login_page.onConsoleMessage = function (msg) { 
 	console.log("Inner log:       "+msg); 

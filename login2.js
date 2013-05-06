@@ -5,67 +5,6 @@ console.log("Where Am I ??:"+location.href);
 
 var socket = io.connect('http://localhost:9000');
 
-function simulate(element, eventName)
-{
-    var options = extend(defaultOptions, arguments[2] || {});
-    var oEvent, eventType = null;
-
-    for (var name in eventMatchers)
-    {
-        if (eventMatchers[name].test(eventName)) { eventType = name; break; }
-    }
-
-    if (!eventType)
-        throw new SyntaxError('Only HTMLEvents and MouseEvents interfaces are supported');
-
-    if (document.createEvent)
-    {
-        oEvent = document.createEvent(eventType);
-        if (eventType == 'HTMLEvents')
-        {
-            oEvent.initEvent(eventName, options.bubbles, options.cancelable);
-        }
-        else
-        {
-            oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView,
-            options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
-            options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
-        }
-        element.dispatchEvent(oEvent);
-    }
-    else
-    {
-        options.clientX = options.pointerX;
-        options.clientY = options.pointerY;
-        var evt = document.createEventObject();
-        oEvent = extend(evt, options);
-        element.fireEvent('on' + eventName, oEvent);
-    }
-    return element;
-}
-
-function extend(destination, source) {
-    for (var property in source)
-      destination[property] = source[property];
-    return destination;
-}
-
-var eventMatchers = {
-    'HTMLEvents': /^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,
-    'MouseEvents': /^(?:click|dblclick|mouse(?:down|up|over|move|out))$/
-}
-var defaultOptions = {
-    pointerX: 0,
-    pointerY: 0,
-    button: 0,
-    ctrlKey: false,
-    altKey: false,
-    shiftKey: false,
-    metaKey: false,
-    bubbles: true,
-    cancelable: true
-}
-
 if(url==='https://www.douban.com/accounts/login?redir=http%3A//www.douban.com/update/'){
 		console.log("Hello form accounts/login");
 		var email=$("#email");
@@ -81,7 +20,7 @@ if(url==='https://www.douban.com/accounts/login?redir=http%3A//www.douban.com/up
 		//人用游览器看着那个地址，并键入验证码
 		//而后返回的值会作为最后的键入
 		//可能最后得用到Dnode或者now.js这类的长链接框架
-
+	
 
 
 	//得到了实际的验证码之后，就可以开始登陆咯
@@ -124,23 +63,15 @@ if(url==='http://www.douban.com/update/'){
 			var t=setTimeout(function(){
 				var reshare=$(".btn-reshare");
 				console.log(reshare);
+        console.log("reshare length: "+reshare.length);
 				if(reshare!=null && reshare!=undefined){
-					// var offset = reshare.offset();
-					// var event = $.extend( $.Event( "mousedown" ), {
-     //                              				which: 1,
-     //                                            pageX: offset.left,
-     //                                            pageY: offset.top
-     //                                    });
-
-					// reshare.trigger(event);
-					//simulate(reshare, "click");
 					reshare.trigger("click");
 					console.log("I am trigger????");
 				}
 				socket.emit("hello", { my:"hello"});
 				console.log($(".btn-reshare").html());
 				window.location.reload();
-			},10000);
+			},50000);
 
 }
 if(url==='http://www.douban.com/'){
