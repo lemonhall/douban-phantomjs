@@ -31,7 +31,10 @@ io.sockets.on('connection', function (socket) {
       console.log(data);
   });
 
-  
+  socket.on('msg',function(data){
+      console.log(data);
+      socket.broadcast.emit('onGotHello',data);
+  });  
 
 	// var t=setInterval(function(){
 

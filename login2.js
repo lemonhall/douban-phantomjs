@@ -62,7 +62,23 @@ if(url==='http://www.douban.com/update/'){
 	
 			var t=setTimeout(function(){
 				var reshare=$(".btn-reshare");
-				console.log(reshare);
+				var msgs=reshare.parent().parent().parent();
+        
+        msgs.each(function(idx,item){
+          jq_item=$(item);
+           var hd=jq_item.find(".hd > a:first");
+           var href=hd.attr("href");
+           console.log(href);
+           if(href!="http://www.douban.com/people/lemonhall2012/"){
+              
+           }else{
+              var blockquote=jq_item.find("blockquote");
+              var data_status_id=jq_item.attr("data-status-id");
+              socket.emit("msg",{id:data_status_id,content:blockquote.html()});
+           }
+          
+        });
+        console.log(reshare);
         console.log("reshare length: "+reshare.length);
 				if(reshare!=null && reshare!=undefined){
 					reshare.trigger("click");
